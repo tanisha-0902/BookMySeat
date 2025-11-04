@@ -59,7 +59,7 @@ Each service communicates via **REST APIs** and is secured using **JWT tokens**.
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/tamannachopraaa/BookMySeat.git
+   git clone https://github.com/tanisha-0902/BookMySeat.git
 Navigate to the project directory
 
 bash
