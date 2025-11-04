@@ -58,23 +58,17 @@ Each service communicates via **REST APIs** and is secured using **JWT tokens**.
 ### ⚙️ Setup Instructions
 
 1. **Clone the repository**
-   ```bash
    git clone https://github.com/tanisha-0902/BookMySeat.git
 Navigate to the project directory
 
-bash
-Copy code
-cd BookMySeat
+2. cd BookMySeat
 Build the project using Maven
 
-bash
-Copy code
-mvn clean install
+
+3. mvn clean install
 Run the Spring Boot application
 
-bash
-Copy code
-mvn spring-boot:run
+4. mvn spring-boot:run
 🌐 Access the Application
 Once the application starts, open your browser and go to:
 
