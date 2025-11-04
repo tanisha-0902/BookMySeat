@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .header-banner {
+            background: linear-gradient(135deg, #6c757d, #343a40);
+            color: white;
+        }
+        .table thead {
+            background-color: #e9ecef;
+            color: #495057;
+            border-bottom: 2px solid #dee2e6;
+        }
+        .table tbody tr:hover {
+            background-color: #f1f3f5;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-4 mb-5">
+
+    <div class="p-3 mb-4 rounded-3 header-banner shadow-sm d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h3 mb-0">Administrator Panel</h1>
+            <p class="mb-0 small">Manage all system events from this dashboard.</p>
+        </div>
+        <form action="http://localhost:8080/logout" method="get">
+            <button type="submit" class="btn btn-outline-light">Logout</button>
+        </form>
+    </div>
+
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <div class="card shadow-sm mb-4 border-0">
+        <div class="card-body">
+            <h5 class="card-title">Add New Event</h5>
+            <form th:action="@{/admin/events/create}" th:object="${newEvent}" method="post">
+                <div class="row">
+                    <div class="col-md-6 mb-3"><input type="text" th:field="*{name}" placeholder="Event Name" class="form-control" required></div>
+                    <div class="col-md-6 mb-3"><input type="text" th:field="*{location}" placeholder="Location" class="form-control" required></div>
+                </div>
+                <div class="mb-3"><input type="date" th:field="*{date}" class="form-control" required></div>
+                <div class="mb-3"><textarea th:field="*{description}" placeholder="Description" class="form-control" rows="2"></textarea></div>
+                <button type="submit" class="btn btn-success">
+                    <i class="fa-solid fa-plus me-1"></i> Save Event
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h5 class="card-title mb-3">Existing Events</h5>
+            <div class="table-responsive">
+                <table class="table table-hover table-bordered align-middle">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th>Date</th>
+                        <th>Attendees</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="event : ${events}">
+                        <td th:text="${event.name}"></td>
+                        <td th:text="${event.location}"></td>
+                        <td th:text="${event.date}"></td>
+                        <td th:text="${attendeeCounts.get(event.id) ?: 0}"></td>
+                        <td class="text-center">
+                            <a th:href="@{/admin/events/details/{id}(id=${event.id})}" class="btn btn-sm btn-info me-1">
+                                <i class="fa-solid fa-eye me-1"></i>Details
+                            </a>
+                            <a th:href="@{/admin/events/edit/{id}(id=${event.id})}" class="btn btn-sm btn-warning me-1">
+                                <i class="fa-solid fa-pencil me-1"></i>Edit
+                            </a>
+                            <form th:action="@{/admin/events/delete/{id}(id=${event.id})}" method="post" class="d-inline">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    <i class="fa-solid fa-trash me-1"></i>Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

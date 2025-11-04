@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Event Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <style>
+        .header-banner {
+            background: linear-gradient(135deg, #6c757d, #343a40);
+            color: white;
+        }
+    </style>
+</head>
+<body style="background-color: #f8f9fa;">
+<div class="container mt-4 mb-5">
+
+    <div class="p-3 mb-4 rounded-3 header-banner shadow-sm d-flex justify-content-between align-items-center">
+        <div>
+            <h1 class="h3 mb-0">Event Details</h1>
+        </div>
+        <a th:href="@{/admin/dashboard}" class="btn btn-outline-light">
+            <i class="fa-solid fa-arrow-left me-1"></i> Back to Dashboard
+        </a>
+    </div>
+
+    <div class="card shadow-sm mb-4 border-0">
+        <div class="card-body">
+            <h5 class="card-title fs-4 border-bottom pb-2 mb-3" th:text="${event.name}">Event Name</h5>
+            <div class="card-text">
+                <p class="mb-2">
+                    <i class="fa-solid fa-location-dot me-2 text-muted"></i>
+                    <strong>Location:</strong> <span th:text="${event.location}"></span>
+                </p>
+                <p class="mb-2">
+                    <i class="fa-solid fa-calendar-days me-2 text-muted"></i>
+                    <strong>Date:</strong> <span th:text="${event.date}"></span>
+                </p>
+                <p class="mb-0">
+                    <i class="fa-solid fa-file-lines me-2 text-muted"></i>
+                    <strong>Description:</strong> <span th:text="${event.description}"></span>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+            <h5 class="card-title mb-3">Registered Users</h5>
+            <div th:if="${#lists.isEmpty(registeredUsers)}">
+                <p class="text-muted">No users have registered for this event yet.</p>
+            </div>
+            <div th:unless="${#lists.isEmpty(registeredUsers)}">
+                <ul class="list-group">
+                    <li class="list-group-item" th:each="user : ${registeredUsers}">
+                        <i class="fa-solid fa-user me-2 text-muted"></i>
+                        <span th:text="${user.username}">Username</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
